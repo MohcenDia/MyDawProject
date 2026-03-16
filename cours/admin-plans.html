@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Admin - Manage Plans</title>
+</head>
+<body>
+     <header>  <img src="gymlogo.jpeg" alt="gym logo" width="50">  <strong>  SALLE DE SPORT LE CUBBE CARPENTRAS</strong></header>
+    <hr>
+    
+    <aside>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="classes.html">classes.html</a></li>
+            <li><a href="Trainers.html">Trainers</a></li>
+            <li><a href="Membership.html">Membership</a></li>
+            <li><a href="contact.html">contact</a></li>
+        </ul>
+    </nav>
+    </aside>
+    <hr>
+           <header><h1>Admin: Membership Management</h1></header>
+    <main>
+        <section>
+            <h2>Existing Plans</h2>
+            <table border="1">
+            <thead>
+                <tr>
+                    <th>Plan Name</th>
+                    <th>Price</th>
+                    <th>Duration</th>
+                    <th>Features</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Bronze</td>
+                    <td>29.9£</td>
+                    <td>Monthly</td>
+                    <td>Gym and cardio machines of the first floor only</td>
+                    <td><button type="button">Edit</button>
+                        <button type="button">Delete</button>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Silver</td>
+                    <td>149.9£</td>
+                    <td>Quaterly</td>
+                    <td>All gym machines including personal trainer</td>
+                    <td><button type="button">Edit</button>
+                    <button type="button">Delete</button>
+                    </td>
+                </tr>
+
+                 <tr>
+                    <td>Gold</td>
+                    <td>249.9£</td>
+                    <td>annual</td>
+                    <td>All gym chaine including personal trainer + access to the gym pool</td>
+                    <td><button type="button">Edit</button>
+                    <button type="button">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+            </table>
+        <section>
+
+        <h2>Add New Plan</h2>
+            <form action="#" method="POST">
+                <p>
+                    <label for="plan-name">Plan Name:</label>
+                    <input type="text" id="plan-name" name="plan-name" required>
+                </p>
+                <p>
+                    <label for="price">Price:</label>
+                    <input type="number" id="price" name="price" step="0.01" required>
+                </p>
+                <p>
+                    <label for="duration">Duration:</label>
+                    <input type="text" id="duration" name="duration" placeholder="e.g. Monthly">
+                </p>
+                <p>
+                    <label for="desc">Description:</label><br>
+                    <textarea id="desc" name="desc" rows="4" cols="30"></textarea>
+                </p>
+                <button type="submit">Create Plan</button>
+            </form>
+           
+        </section>
+
+    </main>
+     <br>
+
+<footer>
+        <p><strong>Contact:</strong><p> </p>
+          <p>  <strong>Phone : </strong><p> </p> <a href="tel:+33 07 81 60 85 63"> <img src="phone-solid.png"  width="25" height="25" ></a><br></p>
+          <p> <strong>Email : </strong><p> </p> <a href="lecubbev2@hotmail.com">  <img src="envelope-open-regular-full.svg"  width="32" height="32" ></a></p>
+        </p>
+        <p><strong>Opening hours :</strong> All the week (6 am - 12 pm)</p>
+        <p> Follow us on social media <p> </p>
+        <a href="https://www.facebook.com/LeCubbeV2?locale=fr_FR"><img src="facebook.png"  width="35" height="35" ></a>
+        </p>
+    </footer>
+
+</body>
+</html>
