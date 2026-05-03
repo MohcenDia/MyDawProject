@@ -1,0 +1,242 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@300;400;600;700&family=Barlow:wght@300;400&display=swap');
+
+/* TOKENS */
+:root{
+  --r:#c11325;--rg:rgba(193,19,37,.35);
+  --bronze:#cd7f32;--silver:#a8a9ad;--gold:#c9a227;
+  --b1:#080808;--b2:#111;--b3:#1a1a1a;--b4:#222;
+  --w:#f5f5f0;--wd:rgba(245,245,240,.65);
+  --fd:'Bebas Neue',sans-serif;--fh:'Barlow Condensed',sans-serif;--fb:'Barlow',sans-serif;
+  --e:.35s cubic-bezier(.4,0,.2,1);
+}
+
+/* RESET */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+
+/* BODY + grain */
+body{font-family:var(--fb);background:var(--b1);color:var(--w);line-height:1.65;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.6;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E")}
+
+/* HEADER */
+header{position:sticky;top:0;z-index:100;background:rgba(8,8,8,.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  padding:14px 40px;display:flex;align-items:center;gap:14px;font-family:var(--fh);
+  font-size:20px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  border-bottom:2px solid var(--r);box-shadow:0 2px 40px rgba(193,19,37,.2)}
+header img{border-radius:50%;border:2px solid var(--r)}
+header strong{color:var(--w)}
+hr{border:none;border-top:1px solid rgba(193,19,37,.3)}
+
+/* NAV */
+nav{background:var(--b2);position:relative}
+nav::after{content:'';display:block;height:1px;background:linear-gradient(90deg,transparent,var(--r),transparent)}
+nav ul{display:flex;justify-content:center;list-style:none;flex-wrap:wrap}
+nav a{display:block;padding:16px 28px;text-decoration:none;color:var(--wd);font-family:var(--fh);
+  font-size:15px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;position:relative;transition:color var(--e)}
+nav a::after{content:'';position:absolute;bottom:0;left:50%;right:50%;height:2px;background:var(--r);transition:left var(--e),right var(--e)}
+nav a:hover{color:#fff}
+nav a:hover::after{left:0;right:0}
+
+/* MAIN */
+main{position:relative;z-index:1;width:90%;max-width:1100px;margin:0 auto;padding:72px 0 100px}
+
+/* PAGE TITLE */
+main>h2{font-family:var(--fd);font-size:clamp(48px,8vw,96px);letter-spacing:.04em;
+  text-transform:uppercase;color:#fff;line-height:1;margin-bottom:48px;
+  animation:up .8s cubic-bezier(.16,1,.3,1) both}
+main>h2::after{content:'';display:block;width:70px;height:3px;background:var(--r);margin-top:16px;transition:width var(--e)}
+main>h2:hover::after{width:200px}
+@keyframes up{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── CARDS GRID WRAPPER ───────────────────────────────────────────
+   The 3 plan sections sit inside a CSS grid so they are:
+   - side by side (3 equal columns)
+   - identical width and minimum height
+   - separated by a gap                                           */
+.plans-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr); /* 3 equal columns */
+  gap:24px;
+  margin-bottom:52px;
+  align-items:stretch;                 /* all cards same height */
+}
+
+/* Since HTML uses sections directly, we wrap them with this trick:
+   target the first 3 sections as a group via display:contents parent */
+main>section:nth-child(2),
+main>section:nth-child(3),
+main>section:nth-child(4){
+  /* Each card: same padding, same border-radius, same background */
+  background:var(--b3);
+  border:1px solid rgba(255,255,255,.06);
+  border-radius:8px;
+  padding:36px 28px 32px;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;             /* stacks content vertically */
+  align-items:center;
+  margin-bottom:24px;                /* gap between cards on mobile */
+  transition:transform var(--e),box-shadow var(--e);
+  animation:up .8s cubic-bezier(.16,1,.3,1) both}
+
+main>section:nth-child(2){border-top:4px solid var(--bronze);animation-delay:.04s}
+main>section:nth-child(3){border-top:4px solid var(--silver);animation-delay:.12s}
+main>section:nth-child(4){border-top:4px solid var(--gold);  animation-delay:.20s}
+
+/* Make the 3 cards sit side by side using a grid on main */
+main{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:auto;column-gap:24px}
+
+/* Title spans all 3 columns */
+main>h2        {grid-column:1/-1}
+/* 3 plan cards each take 1 column */
+main>section:nth-child(2){grid-column:1}
+main>section:nth-child(3){grid-column:2}
+main>section:nth-child(4){grid-column:3}
+/* Form, payment and footer span all columns */
+main>section:nth-child(5),
+main>section:nth-child(6){grid-column:1/-1;margin-top:0}
+
+/* Radial glow on hover — color matches the card tier */
+main>section:nth-child(2)::before,
+main>section:nth-child(3)::before,
+main>section:nth-child(4)::before{content:'';position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity var(--e)}
+main>section:nth-child(2)::before{background:radial-gradient(circle at 50% 0%,rgba(205,127,50,.12) 0%,transparent 65%)}
+main>section:nth-child(3)::before{background:radial-gradient(circle at 50% 0%,rgba(168,169,173,.12) 0%,transparent 65%)}
+main>section:nth-child(4)::before{background:radial-gradient(circle at 50% 0%,rgba(201,162,39,.14) 0%,transparent 65%)}
+
+main>section:nth-child(2):hover{transform:translateY(-10px);box-shadow:0 20px 56px rgba(0,0,0,.6),0 0 32px rgba(205,127,50,.2)}
+main>section:nth-child(3):hover{transform:translateY(-10px);box-shadow:0 20px 56px rgba(0,0,0,.6),0 0 32px rgba(168,169,173,.2)}
+main>section:nth-child(4):hover{transform:translateY(-10px);box-shadow:0 20px 56px rgba(0,0,0,.6),0 0 32px rgba(201,162,39,.22)}
+main>section:nth-child(2):hover::before,
+main>section:nth-child(3):hover::before,
+main>section:nth-child(4):hover::before{opacity:1}
+
+/* Hide the artical/articale wrapper — content flows directly */
+main>section:nth-child(2)>articale,
+main>section:nth-child(3)>artical,
+main>section:nth-child(4)>artical{display:contents}
+
+/* Card title */
+main>section:nth-child(2) h3,
+main>section:nth-child(3) h3,
+main>section:nth-child(4) h3{
+  font-family:var(--fd);font-size:clamp(32px,3vw,44px);
+  letter-spacing:.06em;text-transform:uppercase;line-height:1;
+  margin-bottom:16px;position:relative;z-index:1}
+main>section:nth-child(2) h3{color:var(--bronze)}
+main>section:nth-child(3) h3{color:var(--silver)}
+main>section:nth-child(4) h3{color:var(--gold)}
+
+/* DL — price & access info */
+dl{width:100%;display:flex;flex-direction:column;gap:0;position:relative;z-index:1;text-align:left}
+
+/* Odd dt = label */
+dl dt:nth-child(odd){
+  font-family:var(--fh);font-size:11px;font-weight:700;
+  letter-spacing:.16em;text-transform:uppercase;margin-top:14px}
+dl dt:first-child{margin-top:0}
+
+/* Even dt = value */
+dl dt:nth-child(even){
+  font-family:var(--fb);font-size:14px;font-weight:300;
+  letter-spacing:.02em;color:var(--wd);margin-bottom:4px;line-height:1.5}
+
+/* 2nd dt = price — big and bold */
+dl dt:nth-child(2){
+  font-family:var(--fd);font-size:clamp(36px,4vw,52px);
+  letter-spacing:.04em;margin-bottom:8px;line-height:1}
+
+/* 5th dt = bio description — muted italic */
+dl dt:nth-child(5){
+  font-size:13px;color:rgba(245,245,240,.38);
+  font-style:italic;line-height:1.6;margin-top:12px}
+
+/* Per-tier label + price colors */
+main>section:nth-child(2) dl dt:nth-child(odd){color:var(--bronze)}
+main>section:nth-child(2) dl dt:nth-child(2)  {color:var(--bronze)}
+main>section:nth-child(3) dl dt:nth-child(odd){color:var(--silver)}
+main>section:nth-child(3) dl dt:nth-child(2)  {color:var(--silver)}
+main>section:nth-child(4) dl dt:nth-child(odd){color:var(--gold)}
+main>section:nth-child(4) dl dt:nth-child(2)  {color:var(--gold)}
+
+/* ── REGISTRATION FORM ── */
+main>section:nth-child(5){background:var(--b3);border:1px solid rgba(255,255,255,.05);
+  border-top:3px solid var(--r);border-radius:8px;padding:48px;margin-top:24px;
+  animation:up .8s .28s cubic-bezier(.16,1,.3,1) both;display:block;text-align:left}
+main>section:nth-child(5)>h2{font-family:var(--fd);font-size:clamp(32px,4vw,52px);
+  letter-spacing:.05em;text-transform:uppercase;color:#fff;line-height:1;margin-bottom:36px}
+main>section:nth-child(5)>h2::after{content:'';display:block;width:56px;height:3px;background:var(--r);margin-top:14px;transition:width var(--e)}
+main>section:nth-child(5):hover>h2::after{width:130px}
+
+fieldset,fliedset{border:1px solid rgba(255,255,255,.07);border-left:3px solid var(--r);
+  border-radius:3px;padding:28px;margin-bottom:28px;background:rgba(255,255,255,.02)}
+legend{font-family:var(--fh);font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--r);padding:0 12px}
+form p{margin-bottom:20px}
+/* Hide empty <p> tags — they create unwanted gray blank spaces */
+p:empty{display:none!important}
+p>br:only-child{display:none}
+form label{display:block;font-family:var(--fh);font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(245,245,240,.45);margin-bottom:8px}
+
+form input[type="text"],form input[type="email"],form input[type="tel"],form input[type="date"]{
+  width:100%;background:var(--b4);border:1px solid rgba(255,255,255,.07);border-bottom:2px solid rgba(193,19,37,.4);
+  border-radius:3px 3px 0 0;padding:12px 16px;font-family:var(--fb);font-size:15px;color:var(--w);outline:none;
+  transition:border-color var(--e),background var(--e),box-shadow var(--e)}
+form input:focus{background:rgba(193,19,37,.04);border-bottom-color:var(--r);box-shadow:0 2px 0 0 var(--r)}
+form input[type="date"]::-webkit-calendar-picker-indicator{filter:invert(.6);cursor:pointer}
+
+form input[type="radio"],form input[type="checkbox"],form input[type="chekbox"]{
+  appearance:none;-webkit-appearance:none;width:18px;height:18px;border:2px solid rgba(193,19,37,.5);
+  background:var(--b4);cursor:pointer;vertical-align:middle;margin-right:10px;margin-bottom:14px;
+  display:inline-block;transition:border-color var(--e),background var(--e),box-shadow var(--e)}
+form input[type="radio"]{border-radius:50%}
+form input[type="radio"]:checked,form input[type="checkbox"]:checked,form input[type="chekbox"]:checked{background:var(--r);border-color:var(--r);box-shadow:0 0 10px var(--rg)}
+form input[type="radio"]+label,form input[type="checkbox"]+label,form input[type="chekbox"]+label{display:inline;font-size:15px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--wd);cursor:pointer;vertical-align:middle}
+form input[type="radio"]:checked+label{color:#fff}
+fieldset>p,fliedset>p{font-size:15px;font-weight:300;color:var(--wd);margin-bottom:18px}
+
+/* SUBMIT BUTTON */
+button[type="submit"]{display:block;width:100%;margin-top:24px;padding:16px;
+  font-family:var(--fh);font-size:16px;font-weight:700;letter-spacing:.18em;
+  text-transform:uppercase;color:#fff;background:var(--r);border:2px solid var(--r);
+  border-radius:2px;cursor:pointer;position:relative;overflow:hidden;
+  transition:color var(--e),box-shadow var(--e),transform var(--e)}
+button[type="submit"]::before{content:'';position:absolute;inset:0;background:#fff;transform:translateX(-101%);transition:transform var(--e);z-index:0}
+button[type="submit"]:hover{color:var(--r);box-shadow:0 0 36px var(--rg);transform:translateY(-2px)}
+button[type="submit"]:hover::before{transform:translateX(0)}
+
+/* PAYMENT SECTION */
+main>section:nth-child(6){background:var(--b3);border:1px solid rgba(255,255,255,.05);
+  border-left:5px solid var(--r);border-radius:8px;padding:24px 32px;margin-top:24px;
+  display:flex!important;align-items:center;gap:24px;
+  animation:up .8s .36s cubic-bezier(.16,1,.3,1) both}
+main>section:nth-child(6) h3{font-family:var(--fd);font-size:clamp(20px,2.5vw,28px);letter-spacing:.06em;text-transform:uppercase;color:#fff;white-space:nowrap}
+main>section:nth-child(6) p{font-family:var(--fh);font-size:17px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--r);border-left:1px solid rgba(193,19,37,.3);padding-left:24px}
+
+/* FOOTER */
+footer{position:relative;z-index:1;background:var(--b2);text-align:center;padding:48px 20px 36px;border-top:2px solid var(--r)}
+footer::before{content:'';display:block;width:80px;height:2px;background:var(--r);margin:0 auto 28px}
+footer p{margin:10px 0;font-size:14px;color:var(--wd);letter-spacing:.04em}
+footer strong{font-family:var(--fh);font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--r)}
+footer a{color:inherit;text-decoration:none}
+footer img{margin:6px 8px;opacity:.75;vertical-align:middle;transition:transform var(--e),opacity var(--e)}
+footer img:hover{transform:scale(1.25) translateY(-3px);opacity:1}
+
+/* RESPONSIVE — stack cards vertically on smaller screens */
+@media(max-width:900px){
+  main{grid-template-columns:1fr}
+  main>section:nth-child(2),
+  main>section:nth-child(3),
+  main>section:nth-child(4){grid-column:1}
+}
+@media(max-width:768px){
+  header{padding:12px 20px;font-size:16px}
+  nav a{padding:12px 14px;font-size:13px}
+  main{width:94%;padding:44px 0 72px}
+  main>section:nth-child(5){padding:32px 22px}
+  fieldset,fliedset{padding:20px 16px}
+  main>section:nth-child(6){flex-direction:column;align-items:flex-start;gap:12px}
+  main>section:nth-child(6) p{border-left:none;padding-left:0;border-top:1px solid rgba(193,19,37,.3);padding-top:12px;width:100%}
+}
